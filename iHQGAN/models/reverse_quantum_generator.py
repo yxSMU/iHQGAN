@@ -4,13 +4,13 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 device = torch.device('cpu')
-#第二个类的定义，每一个类别包括一个生成器和判别器，对的
+
 class PQWGAN_CC3():
     def __init__(self, image_size,image_size_2, channels, n_generators, n_qubits, n_ancillas, n_layers, patch_shape):
         self.image_shape = (channels,image_size, image_size_2)
         self.critic = self.ClassicalCritic(self.image_shape)
         self.generator = self.QuantumGenerator(n_generators, n_qubits, n_ancillas, n_layers, self.image_shape, patch_shape)
-#判别器
+
     class ClassicalCritic(nn.Module):
         def __init__(self, image_shape):
             super().__init__()
@@ -25,7 +25,7 @@ class PQWGAN_CC3():
             x = F.leaky_relu(self.fc1(x), 0.2)
             x = F.leaky_relu(self.fc2(x), 0.2)
             return self.fc3(x)
-#生成器
+
     class QuantumGenerator(nn.Module):
         def __init__(self, n_generators, n_qubits, n_ancillas, n_layers, image_shape, patch_shape):
             super().__init__()
@@ -57,8 +57,8 @@ class PQWGAN_CC3():
             i = 0
             for sub_generator_param in self.params:
                 patches = torch.Tensor(0, pixels_per_patch)
-                start = i * (x.shape[1] // 32)  # 计算每个部分的起始位置
-                end = (i + 1) * (x.shape[1] // 32)  # 计算每个部分的结束位置
+                start = i * (x.shape[1] // 32)  
+                end = (i + 1) * (x.shape[1] // 32)  
                 i = i + 1
                 for item in x[:, start:end]:
                     sub_generator_out = self.partial_trace_and_postprocess(item, sub_generator_param).float().unsqueeze(0)
@@ -80,7 +80,7 @@ class PQWGAN_CC3():
                 final_out = output_images.view(output_images.shape[0], *self.image_shape)
             return final_out
 
-        # 定义可逆的变分量子电路
+     
         def reversible_variational_circuit(self, inputs, weights):
             qml.AmplitudeEmbedding(inputs, wires=range(self.n_qubits), pad_with=0., normalize=True)
             for i in reversed(range(self.n_layers)):
