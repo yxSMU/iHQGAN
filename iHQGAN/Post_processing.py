@@ -32,7 +32,7 @@ def process_images(base_dir):
                             denoised_img_path = os.path.join(denoised_folder, str(img_idx) + '.png')
                             cv2.imwrite(denoised_img_path, denoised_img)
 
-    print("处理完成。")
+    print("over")
 
 base_dir = r'F:\Coode\TestResult2\canny7critic_10_20_300'
 process_images(base_dir)
