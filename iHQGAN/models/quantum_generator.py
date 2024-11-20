@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 device = torch.device('cpu')
-#第一个类的定义
+
 class PQWGAN_CC():
     def __init__(self, image_size,image_size_2, channels, n_generators, n_qubits, n_ancillas, n_layers, patch_shape):
         self.image_shape = (channels,image_size, image_size_2)
@@ -55,8 +55,8 @@ class PQWGAN_CC():
             for sub_generator_param in self.params:
                 patches = torch.Tensor(0, pixels_per_patch)
 
-                start = i * (x.shape[1] // 32)  # 计算每个部分的起始位置
-                end = (i + 1) * (x.shape[1] // 32)  # 计算每个部分的结束位置
+                start = i * (x.shape[1] // 32)  
+                end = (i + 1) * (x.shape[1] // 32) 
                 i = i + 1
                 for item in x[:, start:end]:
                     sub_generator_out = self.partial_trace_and_postprocess(item, sub_generator_param).float().unsqueeze(0)
