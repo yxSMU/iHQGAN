@@ -19,14 +19,10 @@ class ImageDataset(Dataset):
 
     def add_padding(self, image):
         width, height = image.size
-        # 创建新的图像对象，宽度增加4列，高度增加4行
         new_width = width + 4
         new_height = height + 4
 
-        # 创建新的图像对象，初始值为0
         new_image = Image.new('L', (new_width, new_height), color=0)
-
-        # 在新图像对象中复制原始图像数据
         new_image.paste(image, (2, 2))
 
         return new_image
