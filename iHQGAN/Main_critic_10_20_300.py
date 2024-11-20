@@ -46,7 +46,6 @@ def fsim(img1, img2):
 
     return fsim_value
 
-
 def train(dataset_str, patches, layers, n_data_qubits, batch_size, checkpoint,
           patch_shape):
     device = torch.device('cpu')
@@ -221,20 +220,20 @@ def train(dataset_str, patches, layers, n_data_qubits, batch_size, checkpoint,
                 optimizer_G.zero_grad()
                 pred_images_B = generator(real_A)
                 fake_validity_B = critic(pred_images_B)
-                # 计算对抗损失
+              
                 g_loss_1 = -torch.mean(fake_validity_B) * 10
-                # 计算Restruction损失
+              
                 image_aba = generator_3(pred_images_B)
                 loss_aba = F.l1_loss(real_A, image_aba) * 20
 
-                # 计算fsim_value损失
+            
                 fsim_value_1 = fsim(denorm(real_A), denorm(image_aba)) * 300
-                # 计算总损失
+               
                 gloss_a2b = g_loss_1 + loss_aba + fsim_value_1
 
                 loss1_history.append(gloss_a2b.item())
                 lossG1sum50 = lossG1sum50 + gloss_a2b.item()
-                # 更新
+               
                 gloss_a2b.backward()
                 optimizer_G.step()
 
