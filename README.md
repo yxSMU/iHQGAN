@@ -12,7 +12,7 @@ The overall architecture of iHQGAN. iHQGAN consists of two quantum generators, t
 
 |                   The framework of iHQGAN                    |
 | :----------------------------------------------------------: |
-| <img src="Fig/iHQGAN_framework.png" alt="iHQGAN_framework" width="600"/> |
+| <img src="Fig/iHQGAN_framework.png" alt="iHQGAN_framework" width="800"/> |
 
 Please refer to our [paper](https://arxiv.org/pdf/2411.13920) for more details.
 ## Experiment Results 
