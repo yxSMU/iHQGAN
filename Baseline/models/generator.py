@@ -41,18 +41,16 @@ class ClassicalGAN1():
             return out
 
     
-    class Discriminator(nn.Module):
-            def __init__(self):
-                super().__init__()
+ class ClassicalCritic(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.fc1 = nn.Linear(1024, 512)
+            self.fc2 = nn.Linear(512, 256)
+            self.fc3 = nn.Linear(256, 1)
 
-                self.fc1 = nn.Linear(1024, 256)
-                self.fc2 = nn.Linear(256, 125)
-                self.fc3 = nn.Linear(125, 1)
-
-            def forward(self, x):
-                x = x.view(x.shape[0], -1)
-                x = F.leaky_relu(self.fc1(x), 0.2)
-                x = F.leaky_relu(self.fc2(x), 0.2)
-                return self.fc3(x)
- 
+        def forward(self, x):
+            x = x.view(x.shape[0], -1)
+            x = F.leaky_relu(self.fc1(x), 0.2)
+            x = F.leaky_relu(self.fc2(x), 0.2)
+            return self.fc3(x)
  
